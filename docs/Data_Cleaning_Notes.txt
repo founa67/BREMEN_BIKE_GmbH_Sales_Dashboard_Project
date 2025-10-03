@@ -1,0 +1,47 @@
+BREMEN BIKE GmbH – Data Cleaning & Transformation Notes
+
+Steps applied to Raw_Data:
+
+1. Renamed sheets: Raw_Data, Cleaned_Data.
+2. Applied filters to inspect unique values per column.
+3. Standardized categorical variables:
+   - Marital_Status: M → Married, S → Single (549 and 477 records).
+   - Gender: M → Male, F → Female (525 and 501 records).
+4. Removed duplicates (26 records affected).
+5. Removed decimal points from Income and formatted as Currency (Euros).
+
+Feature Engineering:
+
+- Age_Group (25–89 years)
+  Formula:
+  =IF(AND(M2>=25,M2<=34),"Young Adults",
+     IF(AND(M2>=35,M2<=44),"Early Middle Age",
+     IF(AND(M2>=45,M2<=54),"Middle Age",
+     IF(AND(M2>=55,M2<=64),"Pre-Retirement",
+     IF(AND(M2>=65,M2<=74),"Young Seniors",
+     IF(AND(M2>=75,M2<=89),"Senior Citizens","Invalid Age"))))))
+
+- Commute_Distance_Group
+  Formula:
+  =IF(J2="0-1 Miles","Less than a mile",
+     IF(J2="1-2 Miles","Between 1 and 2 miles",
+     IF(J2="2-5 Miles","Between 2 and 5 miles",
+     IF(J2="5-10 Miles","Between 5 and 10 miles",
+     IF(J2="10+ Miles","Greater than 10 miles","Unknown")))))
+
+- Income_Group (10k–170k range, 5 bands)
+  Formula:
+  =IF(D2<=40000,"Low Income",
+     IF(D2<=70000,"Lower-Middle Income",
+     IF(D2<=100000,"Middle Income",
+     IF(D2<=130000,"Upper-Middle Income","High Income"))))
+
+Pivot Tables & Visuals Created:
+1. Average Income Per Purchase
+2. Commute Distance and Purchase
+3. Age Group and Purchase
+4. Marital Status and Purchase
+5. Education Level and Purchase
+
+Dashboard Interactivity:
+- Added slicers for Gender and Income_Group.
